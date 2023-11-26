@@ -1,3 +1,9 @@
 [submodule "third-party/json"]
 	path = third-party/json
 	url = https://github.com/nlohmann/json.git
+[submodule "third-party/spdlog"]
+	path = third-party/spdlog
+	url = https://github.com/gabime/spdlog.git
+[submodule "third-party/outcome"]
+	path = third-party/outcome
+	url = https://github.com/ned14/outcome.git
