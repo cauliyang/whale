@@ -8,7 +8,6 @@
 
 using json = nlohmann::json;
 
-#include <algorithm>  // for std::for_each
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/graphviz.hpp>
 #include <ranges>
