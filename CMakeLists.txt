@@ -6,16 +6,17 @@ project(whale LANGUAGES CXX)
 
 find_package(fmt CONFIG REQUIRED)
 find_package(armadillo CONFIG REQUIRED)
+find_package(Boost CONFIG REQUIRED)
 
 add_subdirectory(third-party/json)
 add_subdirectory(third-party/spdlog)
-add_subdirectory(third-party/outcome EXCLUDE_FROM_ALL)
 
 function(add_executable_with_properties TARGET_NAME)
   add_executable(${TARGET_NAME} ${ARGN})
-  target_link_libraries(
-    ${TARGET_NAME} PUBLIC fmt armadillo omp nlohmann_json::nlohmann_json
-                          outcome::hl)
+  target_include_directories(
+    ${TARGET_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/third-party/CXXGraph/include)
+  target_link_libraries(${TARGET_NAME} PUBLIC fmt armadillo omp
+                                              nlohmann_json::nlohmann_json)
   set_target_properties(${TARGET_NAME} PROPERTIES CXX_STANDARD 20
                                                   CXX_STANDARD_REQUIRED ON)
   target_compile_options(${TARGET_NAME} PUBLIC -fopenmp)
@@ -29,5 +30,5 @@ endif()
 add_executable_with_properties(ens ens.cpp)
 add_executable_with_properties(mlpack mlpack.cpp)
 add_executable_with_properties(movie movie.cpp)
-add_executable_with_properties(graph graph.cpp)
 add_executable_with_properties(arma arma.cpp)
+add_executable_with_properties(nlgraph nlgraph.cpp)

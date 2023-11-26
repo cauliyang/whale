@@ -11,13 +11,13 @@ configure-release:
 	cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
 
 build: configure-debug
-	cmake --build build
+	cmake --build build -j 8
 
 test: configure-debug build
 	ctest --test-dir build/test --output-on-failure
 
 clean:
-	cmake --build build --target clean
+	rm -rf build
 
 update-dep:
 	git submodule update --init --recursive
