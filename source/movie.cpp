@@ -16,7 +16,7 @@ int main() {
   // Now, load the names of the movies as a single-feature categorical dataset.
   // We can use `moviesInfo.UnmapString(i, 0)` to get the i'th string.
   data::DatasetInfo moviesInfo;
-  mat movies; // This will be unneeded.
+  mat movies;  // This will be unneeded.
   if (!data::Load("movies.csv", movies, moviesInfo))
     throw std::runtime_error("Could not load movies.csv!");
 
@@ -27,22 +27,21 @@ int main() {
 
   // Train the CF model using RegularizedSVD as the decomposition algorithm.
   // Here we use a rank of 10 for the decomposition.
-  CFType<RegSVDPolicy> cf(
-      trainRatings, RegSVDPolicy(),
-      5, /* number of users to use for similarity computations */
-      10 /* rank of decomposition */);
+  CFType<RegSVDPolicy> cf(trainRatings, RegSVDPolicy(),
+                          5, /* number of users to use for similarity computations */
+                          10 /* rank of decomposition */);
 
   // Now compute the RMSE for the test set user and item combinations.  To do
   // this we must assemble the list of users and items.
   Mat<size_t> combinations(2, testRatings.n_cols);
   for (size_t i = 0; i < testRatings.n_cols; ++i) {
-    combinations(0, i) = size_t(testRatings(0, i)); // (user)
-    combinations(1, i) = size_t(testRatings(1, i)); // (item)
+    combinations(0, i) = size_t(testRatings(0, i));  // (user)
+    combinations(1, i) = size_t(testRatings(1, i));  // (item)
   }
   vec predictions;
   cf.Predict(combinations, predictions);
-  const double rmse = norm(predictions - testRatings.row(2).t(), 2) /
-                      sqrt((double)testRatings.n_cols);
+  const double rmse =
+      norm(predictions - testRatings.row(2).t(), 2) / sqrt((double)testRatings.n_cols);
   std::cout << "RMSE of trained model is " << rmse << "." << endl;
 
   // Compute the top 10 movies for user 1.
@@ -53,7 +52,6 @@ int main() {
   // Now print each movie.
   cout << "Recommendations for user 1:" << endl;
   for (size_t i = 0; i < recommendations.n_elem; ++i) {
-    cout << "  " << (i + 1) << ". "
-         << moviesInfo.UnmapString(recommendations[i], 2) << "." << endl;
+    cout << "  " << (i + 1) << ". " << moviesInfo.UnmapString(recommendations[i], 2) << "." << endl;
   }
 }

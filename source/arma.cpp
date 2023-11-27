@@ -1,11 +1,11 @@
-#include "spdlog/spdlog.h"
 #include <armadillo>
 #include <sstream>
+
+#include "spdlog/spdlog.h"
 
 using namespace arma;
 
 int main(int argc, char *argv[]) {
-
   mat A(4, 5, fill::randu);
   mat B(4, 5, fill::randu);
 
