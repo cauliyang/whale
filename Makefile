@@ -1,6 +1,6 @@
 .PHONY: main configure-debug build test clean format update-dep
 
-main: configure-debug build
+main: configure-release build
 
 release: clean configure-release build
 
