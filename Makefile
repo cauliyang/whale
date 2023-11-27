@@ -14,7 +14,7 @@ build: configure-debug
 	cmake --build build -j 8
 
 test: configure-debug build
-	ctest --test-dir build/test --output-on-failure
+	ctest --test-dir build/tests/test_nlgraph --output-on-failure
 
 clean:
 	rm -rf build

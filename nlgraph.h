@@ -14,6 +14,7 @@ class Variation {
   enum Value { INV, DUP, TRA, UNK };
 
   Variation() = default;
+  explicit Variation(Value value) : value_(std::move(value)) {}
 
   [[nodiscard]] Value value() const { return value_; }
 
@@ -43,7 +44,7 @@ class Strand {
   enum Value { Forward, Reverse };
 
   Strand() = default;
-  explicit Strand(Value value) : value_(value) {}
+  explicit Strand(Value value) : value_(std::move(value)) {}
 
   [[nodiscard]] Value value() const { return value_; }
   [[nodiscard]] std::string to_string() const {

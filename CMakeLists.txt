@@ -32,3 +32,10 @@ add_executable_with_properties(mlpack mlpack.cpp)
 add_executable_with_properties(movie movie.cpp)
 add_executable_with_properties(arma arma.cpp)
 add_executable_with_properties(nlgraph nlgraph.cpp)
+
+option(ENABLE_TEST "Enable test" ON)
+
+if(ENABLE_TEST)
+  enable_testing()
+  add_subdirectory(tests/test_nlgraph)
+endif()
