@@ -16,10 +16,11 @@ file(
     SHA256=cc155ce02e7945e7b8967ddfaff0b050e958a723ef7aad3766d368940cb15494)
 include(${CMAKE_CURRENT_BINARY_DIR}/cmake/CPM.cmake)
 
+cpmaddpackage(NAME cxxgraph GITHUB_REPOSITORY ZigRazor/CXXGraph VERSION 3.0.0)
+
 find_package(fmt)
 if(NOT fmt_FOUND)
   message("fmt not found, using cpm to download fmt")
-  include(cmake/CPM.cmake)
   cpmaddpackage(
     NAME
     fmt
@@ -64,6 +65,7 @@ endif()
 
 function(add_executable_with_properties TARGET_NAME)
   add_executable(${TARGET_NAME} ${ARGN})
+
   target_include_directories(
     ${TARGET_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/third-party/CXXGraph/include
                           include)
@@ -84,6 +86,7 @@ add_executable_with_properties(mlpack source/mlpack.cpp)
 add_executable_with_properties(movie source/movie.cpp)
 add_executable_with_properties(arma source/arma.cpp)
 add_executable_with_properties(nlgraph source/nlgraph.cpp)
+add_executable_with_properties(cxxgraph source/cxxgraph.cpp)
 
 option(ENABLE_TEST "Enable test" ON)
 
