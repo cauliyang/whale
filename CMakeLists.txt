@@ -11,6 +11,16 @@ find_package(Boost CONFIG REQUIRED)
 add_subdirectory(third-party/json)
 add_subdirectory(third-party/spdlog)
 
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug" AND CMAKE_CXX_COMPILER_ID MATCHES
+                                         "GNU|Clang")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address,leak")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address,leak")
+endif()
+
+#
 function(add_executable_with_properties TARGET_NAME)
   add_executable(${TARGET_NAME} ${ARGN})
   target_include_directories(
