@@ -14,7 +14,8 @@ add_subdirectory(third-party/spdlog)
 function(add_executable_with_properties TARGET_NAME)
   add_executable(${TARGET_NAME} ${ARGN})
   target_include_directories(
-    ${TARGET_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/third-party/CXXGraph/include)
+    ${TARGET_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/third-party/CXXGraph/include
+                          include)
   target_link_libraries(${TARGET_NAME} PUBLIC fmt armadillo omp
                                               nlohmann_json::nlohmann_json)
   set_target_properties(${TARGET_NAME} PROPERTIES CXX_STANDARD 20
@@ -27,11 +28,11 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
   add_compile_options(-march=native)
 endif()
 
-add_executable_with_properties(ens ens.cpp)
-add_executable_with_properties(mlpack mlpack.cpp)
-add_executable_with_properties(movie movie.cpp)
-add_executable_with_properties(arma arma.cpp)
-add_executable_with_properties(nlgraph nlgraph.cpp)
+add_executable_with_properties(ens source/ens.cpp)
+add_executable_with_properties(mlpack source/mlpack.cpp)
+add_executable_with_properties(movie source/movie.cpp)
+add_executable_with_properties(arma source/arma.cpp)
+add_executable_with_properties(nlgraph source/nlgraph.cpp)
 
 option(ENABLE_TEST "Enable test" ON)
 
